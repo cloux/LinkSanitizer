@@ -13,7 +13,7 @@ Link Sanitizer is a simple and efficient userscript for [Violentmonkey](https://
 
 Userscripts won't work on websites implementing restrictive Content Security Policies (e.g. _addons.mozilla.org_, _github.com_, or _twitter.com_). Currently the only way to make ViolentMonkey or GreaseMonkey work on all sites is to disable the CSP protection, which is [generally **not recommended**](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
 
-The corresponding setting in [Firefox about:config](about:config) is:
+The corresponding setting in Firefox about:config is:
 
     security.csp.enable = false
 
@@ -23,7 +23,7 @@ The development progress on this issue for Mozilla is [here](https://bugzilla.mo
 
 ### Firefox addons on "superior" domains
 
-Mozilla decided that Firefox simply disables addons for domains which are regarded as superior to user and his freedom. These domains are unsurprisingly owned by Mozilla. To get rid of this nasty "superior domain list" and enable addons everywhere, set in [about:config](about:config):
+Mozilla decided that Firefox simply disables addons for domains which are regarded as superior to user and his freedom. These domains are unsurprisingly owned by Mozilla. To get rid of this nasty "superior domain list" and enable addons everywhere, set in about:config:
 
     extensions.webextensions.restrictedDomains = ""
 
@@ -41,7 +41,7 @@ NOTE: You will be able to install plugins as usual, but the _addons.mozilla.org_
 
 ### Compatibility
 
-Tested with [Violentmonkey](https://violentmonkey.github.io) and [Greasemonkey](https://www.greasespot.net) on Firefox 60,61,63 and Chromium 70. Tampermonkey was not tested due to it's cumbersome legal status, see [https://tampermonkey.net/eula.php](https://tampermonkey.net/eula.php).
+Tested with [Violentmonkey](https://violentmonkey.github.io) and [Greasemonkey](https://www.greasespot.net) on Firefox 60,61,63 and Chromium 70. Tampermonkey was not tested due to its cumbersome legal status, see [https://tampermonkey.net/eula.php](https://tampermonkey.net/eula.php).
 
 ## Author
 
