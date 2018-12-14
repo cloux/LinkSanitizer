@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.0.4
+// @version      1.0.5
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -34,6 +34,7 @@
 		// whitelisted services
 		if (/google\.[a-z]*\/ServiceLogin/.test(weblink) ||                      // google login service
 		    /^http.*(login|registration)[/?].*http/.test(weblink) ||             // heise.de
+		    /\/oauth\?/.test(weblink) ||                                         // OAuth on aws.amazon.com
 		    /\/signin\?openid/.test(weblink) ||                                  // amazon.com
 		    /^https?:\/\/[a-z.]*archive\.org\//.test(weblink) ||                 // archive.org
 		    /^https:\/\/id\.atlassian\.com\//.test(weblink) ||                   // Atlassian Login
