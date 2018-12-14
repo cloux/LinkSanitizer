@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.0.5
+// @version      1.0.6
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -19,18 +19,8 @@
 		console.log("Hyperlink Sanitizer - Not loading for content type " + document.contentType);
 		return;
 	}
-	//console.log("Hyperlink Sanitizer - Loaded");
-
-	// sanitize single link
+	// Sanitize single link
 	function sanitize(weblink) {
-		if (weblink.length == 0) {
-			return "";
-		}
-		//console.log("Sanitizer found link: " + weblink);
-		// is this a wrapped hyperlink?
-		if (/^http.*https?(%3A|:)/.test(weblink) == false) {
-			return weblink;
-		}
 		// whitelisted services
 		if (/google\.[a-z]*\/ServiceLogin/.test(weblink) ||                      // google login service
 		    /^http.*(login|registration)[/?].*http/.test(weblink) ||             // heise.de
@@ -66,6 +56,14 @@
 			// Make sure the callback isn't invoked with the same element more than once
 			if (!hyperlinks[i].sanitized) {
 				hyperlinks[i].sanitized = true;
+				// Is there a valid href?
+				if (hyperlinks[i].href.length == 0) {
+					continue;
+				}
+				// Is this a wrapped hyperlink?
+				if (/^http.*https?(%3A|:)/.test(hyperlinks[i].href) == false) {
+					continue;
+				}
 				// Sanitize hyperlink
 				hyperlinks[i].href = sanitize(hyperlinks[i].href);
 			}
