@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.0.7
+// @version      1.1.0
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
 // @homepage     https://github.com/cloux/LinkSanitizer
 // @supportURL   https://github.com/cloux/LinkSanitizer
-// @updateURL    https://raw.githubusercontent.com/cloux/LinkSanitizer/master/linksanitizer.user.js 
 // @icon         http://icons.iconarchive.com/icons/designbolts/seo/128/Natural-Link-icon.png
 // @include      *
 // @run-at       document-start
@@ -36,7 +35,7 @@
 			return weblink;
 		}
 		console.log("Hyperlink: " + weblink);
-		var strnew = weblink.replace(/http.*(https?(%3A|:)[^\\&]*).*/, '$1');
+		var strnew = weblink.replace(/^..*(https?(%3A|:)[^\\&]*).*/, '$1');
 		strnew = strnew.replace(/%23/g, '#');
 		strnew = strnew.replace(/%26/g, '&');
 		strnew = strnew.replace(/%2F/g, '/');
@@ -50,32 +49,36 @@
 	}
 
 	// MutationObserver callback
-	function callback() {
+	function callback(mutationsList) {
 		// Query for elements
-		hyperlinks = window.document.getElementsByTagName('a');	
-		for (var i = 0; i < hyperlinks.length; i++) {
-			// Make sure the callback isn't invoked with the same element more than once
-			if (!hyperlinks[i].sanitized) {
-				hyperlinks[i].sanitized = true;
-				// Is there a valid href?
-				if (hyperlinks[i].href.length == 0) {
-					continue;
-				}
-				// Is this a wrapped hyperlink?
-				if (/^http.*https?(%3A|:)/.test(hyperlinks[i].href) == false) {
-					continue;
-				}
-				// Sanitize hyperlink
-				hyperlinks[i].href = sanitize(hyperlinks[i].href);
+		for (var mutation of mutationsList) {
+			switch(mutation.type) {
+				case "attributes":
+					// Sanitize single mutated element
+					if (/..https?(%3A|:)/.test(mutation.target.href)) {
+						// Avoid infinite callback loops and set target href only if it would actually change
+						var sanitizedLink = sanitize(mutation.target.href);
+						if (mutation.target.href != sanitizedLink) {
+							mutation.target.href = sanitizedLink;
+						}
+					}
+					break;
+				case "childList":
+					// Sanitize all new elements
+					for (var node of mutation.addedNodes) {
+						if ((typeof node.href !== 'undefined') && (/..https?(%3A|:)/.test(node.href))) {
+							node.href = sanitize(node.href);
+						}
+					}
+					break;
 			}
 		}
 	}
+
 	// Create an observer instance linked to the callback function
 	const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 	var observer = new MutationObserver(callback);
-	// Start observing the target node for configured mutations
-	observer.observe(window.document.documentElement, { childList: true, subtree: true });
-	// Ensure script execution for every element on every page refresh
-	window.onload = callback();
+	// Start observing added elements and changes of href attributes
+	observer.observe(window.document.documentElement, { attributeFilter: [ "href" ], childList: true, subtree: true });
 
 })();
