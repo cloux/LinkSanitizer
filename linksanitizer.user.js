@@ -7,6 +7,7 @@
 // @namespace    https://github.com/cloux
 // @homepage     https://github.com/cloux/LinkSanitizer
 // @supportURL   https://github.com/cloux/LinkSanitizer
+// @updateURL    https://raw.githubusercontent.com/cloux/LinkSanitizer/master/linksanitizer.user.js 
 // @icon         http://icons.iconarchive.com/icons/designbolts/seo/128/Natural-Link-icon.png
 // @include      *
 // @run-at       document-start
