@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.1.0
+// @version      1.1.1
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -32,6 +32,7 @@
 		    /^https?:\/\/(www\.)?facebook\.com\/sharer/.test(weblink) ||         // share on FB
 		    /^https?:\/\/(www\.)?linkedin\.com\/share/.test(weblink) ||          // share on linkedin
 		    /^https?:\/\/(www\.)?twitter\.com\/(intent\/tweet|share)/.test(weblink) ||   // tweet link
+		    /^https?:\/\/(www\.)?getpocket\.com\/save/.test(weblink) ||          // save link to pocket
 		    /^https?:\/\/(www\.)?pinterest\.com\/pin\/create\//.test(weblink)) { // pinterest post
 			return weblink;
 		}
