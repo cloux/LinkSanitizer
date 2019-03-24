@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.1.2
+// @version      1.1.3
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -21,20 +21,24 @@
 	}
 	// Sanitize single link
 	function sanitize(weblink) {
+		// skip non-http links      
+		if (! /^http/.test(weblink)) {
+			return weblink;
+		}
 		// whitelisted services
 		if (/google\.[a-z]*\/ServiceLogin/.test(weblink) ||                      // google login service
+		    /^https:\/\/translate\.google\./.test(weblink) ||                    // Google translator
 		    /^http.*(login|registration)[/?].*http/.test(weblink) ||             // heise.de
-		    /^magnet/.test(weblink) ||                                           // magnet torrents
 		    /\/oauth\?/.test(weblink) ||                                         // OAuth on aws.amazon.com
 		    /\/signin\?openid/.test(weblink) ||                                  // amazon.com
 		    /^https?:\/\/downloads\.sourceforge\.net\//.test(weblink) ||         // downloads.sourceforge.net
-		    /^https?:\/\/[a-z.]*archive\.org\//.test(weblink) ||                 // archive.org
-		    /^https:\/\/id\.atlassian\.com\//.test(weblink) ||                   // Atlassian Login
 		    /^https?:\/\/(www\.)?facebook\.com\/sharer/.test(weblink) ||         // share on FB
 		    /^https?:\/\/(www\.)?linkedin\.com\/share/.test(weblink) ||          // share on linkedin
 		    /^https?:\/\/(www\.)?twitter\.com\/(intent\/tweet|share)/.test(weblink) ||   // tweet link
+		    /^https?:\/\/(www\.)?pinterest\.com\/pin\/create\//.test(weblink) || // pinterest post
 		    /^https?:\/\/(www\.)?getpocket\.com\/save/.test(weblink) ||          // save link to pocket
-		    /^https?:\/\/(www\.)?pinterest\.com\/pin\/create\//.test(weblink)) { // pinterest post
+		    /^https?:\/\/[a-z.]*archive\.org\//.test(weblink) ||                 // archive.org
+		    /^https:\/\/id\.atlassian\.com\//.test(weblink)) {                   // Atlassian Login
 			return weblink;
 		}
 		console.log("Hyperlink: " + weblink);
