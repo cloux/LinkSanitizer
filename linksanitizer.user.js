@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.1.3
+// @version      1.1.4
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
