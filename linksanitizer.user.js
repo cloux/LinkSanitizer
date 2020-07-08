@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.1.5
+// @version      1.1.6
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -42,7 +42,7 @@
 			return weblink;
 		}
 		console.log("Hyperlink: " + weblink);
-		var strnew = weblink.replace(/^..*(https?(%3A|:)[^\\&]*).*/, '$1');
+		var strnew = weblink.replace(/^..*(https?(%3A|:)[^\\()&]*).*/, '$1');
 		strnew = strnew.replace(/%23/g, '#');
 		strnew = strnew.replace(/%26/g, '&');
 		strnew = strnew.replace(/%2F/g, '/');
