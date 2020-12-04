@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.1.6
+// @version      1.1.7
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -30,7 +30,7 @@
 		    /^https:\/\/translate\.google\./.test(weblink) ||                    // Google translator
 		    /^http.*(login|registration)[./?].*http/.test(weblink) ||            // aliexpress, heise.de
 		    /\/oauth\?/.test(weblink) ||                                         // OAuth on aws.amazon.com
-		    /\/signin\?openid/.test(weblink) ||                                  // amazon.com
+		    /\/signin[/?]/.test(weblink) ||                                      // amazon.com, google, gmail
 		    /^https?:\/\/downloads\.sourceforge\.net\//.test(weblink) ||         // downloads.sourceforge.net
 		    /^https?:\/\/(www\.)?facebook\.com\/sharer/.test(weblink) ||         // share on FB
 		    /^https?:\/\/(www\.)?linkedin\.com\/share/.test(weblink) ||          // share on linkedin
@@ -38,6 +38,7 @@
 		    /^https?:\/\/(www\.)?pinterest\.com\/pin\/create\//.test(weblink) || // pinterest post
 		    /^https?:\/\/(www\.)?getpocket\.com\/save/.test(weblink) ||          // save link to pocket
 		    /^https?:\/\/[a-z.]*archive\.org\//.test(weblink) ||                 // archive.org
+		    /^https?:\/\/github\.com\//.test(weblink) ||                         // Github
 		    /^https:\/\/id\.atlassian\.com\//.test(weblink)) {                   // Atlassian Login
 			return weblink;
 		}
