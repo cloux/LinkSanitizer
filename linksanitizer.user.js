@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.1.7
+// @version      1.1.8
 // @author       cloux <cloux@rote.ch>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -26,7 +26,7 @@
 			return weblink;
 		}
 		// whitelisted services
-		if (/google\.[a-z]*\/ServiceLogin/.test(weblink) ||                      // google login service
+		if (/google\.[a-z]*\/(ServiceLogin|AccountChooser)/.test(weblink) ||     // google login service
 		    /^https:\/\/translate\.google\./.test(weblink) ||                    // Google translator
 		    /^http.*(login|registration)[./?].*http/.test(weblink) ||            // aliexpress, heise.de
 		    /\/oauth\?/.test(weblink) ||                                         // OAuth on aws.amazon.com
