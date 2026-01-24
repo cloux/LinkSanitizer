@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link Sanitizer
 // @description  Clean up unnecessary hyperlink redirections and link shims
-// @version      1.2.0
+// @version      1.2.1
 // @author       wespe <jan@wespe.dev>
 // @license      WTFPL 2.0; http://www.wtfpl.net/about/
 // @namespace    https://github.com/cloux
@@ -28,14 +28,13 @@
     }
     // whitelisted services
     if ( /google\.[a-z]*\/(ServiceLogin|Logout|AccountChooser)/.test(weblink) // google login service
-      || /^https:\/\/translate\.google\./.test(weblink)                       // Google translator
+      || /^https:\/\/(translate|consent)\.google\./.test(weblink)             // google services
       || /^http.*(login|registration)[./?].*http/.test(weblink)               // aliexpress, heise.de
       || /\/oauth\?/.test(weblink)                                            // OAuth on aws.amazon.com
       || /\/signin[/?]/.test(weblink)                                         // amazon.com, google, gmail
-      || /^https?:\/\/downloads\.sourceforge\.net\//.test(weblink)            // downloads.sourceforge.net
+      || /^https?:\/\/downloads\.(sourceforge|sf)\.net\//.test(weblink)       // downloads.sourceforge.net
       || /^https?:\/\/(www\.)?facebook\.com\/sharer/.test(weblink)            // share on FB
       || /^https?:\/\/(www\.)?linkedin\.com\/share/.test(weblink)             // share on linkedin
-      || /^https?:\/\/(www\.)?twitter\.com\/(intent\/tweet|share)/.test(weblink)    // tweet link
       || /^https?:\/\/(www\.)?pinterest\.com\/pin\/create\//.test(weblink)    // pinterest post
       || /^https?:\/\/(www\.)?getpocket\.com\/save/.test(weblink)             // save link to pocket
       || /^https?:\/\/[a-z.]*archive\.org\//.test(weblink)                    // archive.org
