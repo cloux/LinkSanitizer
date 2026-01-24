@@ -45,7 +45,7 @@ Tested with [Violentmonkey](https://violentmonkey.github.io) and [Greasemonkey](
 
 ## Author
 
-This userscript is maintained by _cloux@rote.ch_
+This userscript is maintained by _jan@wespe.dev_
 
 ## License
 
